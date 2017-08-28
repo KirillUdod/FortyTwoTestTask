@@ -1,9 +1,13 @@
-from django.test import TestCase
+from django.core.urlresolvers import reverse
+from django.test import TestCase, Client
 
 # Create your tests here.
 
 
-class SomeTests(TestCase):
-    def test_math(self):
-        "put docstrings in your tests"
-        assert(2 + 2 == 4)
+class IndexTests(TestCase):
+
+    def test_index(self):
+        "return hard-coded data for the template"
+        c = Client()
+        response = c.get('/')
+        assert(response.content)
