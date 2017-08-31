@@ -5,6 +5,7 @@ from .models import WebRequest
 
 import json
 
+
 class IndexPage(TemplateView):
     template_name = u'index.html'
 
@@ -41,5 +42,6 @@ class NewRequestsView(View):
     def get(self, request, **kwargs):
         context = {}
         if request.method == 'GET':
-            context['data'] = [ob.as_json() for ob in WebRequest.objects.all().order_by('-id')[:10]]
+            context['data'] = [ob.as_json() for ob in
+                               WebRequest.objects.all().order_by('-id')[:10]]
             return JsonResponse(context)

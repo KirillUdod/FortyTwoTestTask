@@ -24,7 +24,9 @@ class TestModel(TestCase):
                                 email='test@test.com',
                                 jabber='test_jadder',
                                 bio='asdas',)
+
     def test_model(self):
+        "check saved data for right value"
         main = MainInfo.objects.get(name="Testname")
 
         self.assertEqual(main.last_name, 'Test lastname')
