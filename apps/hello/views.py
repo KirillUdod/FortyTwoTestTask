@@ -1,9 +1,9 @@
 # Create your views here.
 from django.views.generic import TemplateView, View
-from django.utils import simplejson
 from django.http import HttpResponse
 from .models import WebRequest
 
+import json
 
 class IndexPage(TemplateView):
     template_name = u'index.html'
@@ -27,9 +27,10 @@ class JsonResponse(HttpResponse):
     """
         JSON response
     """
-    def __init__(self, content, mimetype='application/json', status=None, content_type=None):
+    def __init__(self, content, mimetype='application/json',
+                 status=None, content_type=None):
         super(JsonResponse, self).__init__(
-            content=simplejson.dumps(content),
+            content=json.dumps(content),
             mimetype=mimetype,
             status=status,
             content_type=content_type,

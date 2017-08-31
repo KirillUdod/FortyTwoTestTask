@@ -1,4 +1,3 @@
-from django.core.urlresolvers import reverse
 from django.test import TestCase, Client
 
 import datetime
@@ -15,11 +14,16 @@ class IndexTests(TestCase):
         response = c.get('/')
         assert(response.content)
 
+
 class TestModel(TestCase):
 
     def setUp(self):
-        MainInfo.objects.create(name='Testname', last_name='Test lastname', birthday=datetime.date.today(),
-                                email='test@test.com', jabber='test_jadder', bio='asdas')
+        MainInfo.objects.create(name='Testname',
+                                last_name='Test lastname',
+                                birthday=datetime.date.today(),
+                                email='test@test.com',
+                                jabber='test_jadder',
+                                bio='asdas',)
     def test_model(self):
         main = MainInfo.objects.get(name="Testname")
 
@@ -28,4 +32,3 @@ class TestModel(TestCase):
         self.assertEqual(main.email, 'test@test.com')
         self.assertEqual(main.jabber, 'test_jadder')
         self.assertEqual(main.bio, 'asdas')
-
