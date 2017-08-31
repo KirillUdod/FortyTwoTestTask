@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+<ul class="list-group">
+    {% for el in list %}
+        <li class="list-group-item" id='{{ el.id }}'>{{ el.request|truncatechars:50 }}</li>
+    {% endfor %}
+</ul>
+<div>
+<script>
+setInterval('NewData()', 5000)
+function NewData()
+{
+function htmlEntities(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+$.ajax({
+        type: "GET",
+        url: "{% url 'new_requests' %}",
+        success: function(response){
+            var new_elements = response.data;
+            var id = $('ul.list-group li:first').attr('id')
+            new_elements.forEach(function(row){
+            res =  row.request.toString()
+            if (row.input_id > id) {
+                $(".list-group").prepend('<li class="list-group-item" id='+ row.input_id +'><b>' + res + '</b></li>');}
+        })
+    }
+    })
+    }
+</script>
+{% endblock %}
