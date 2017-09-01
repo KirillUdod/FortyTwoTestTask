@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
+
+{% load cropping %}
 {% block content %}
 <div class="container">
-    <h1>42 Coffee Cups Test Assignment</h1>
+    <div class="col-sm-12">
+        <div class="col-sm-8"><h1>42 Coffee Cups Test Assignment</h1></div>
+        <div class="col-sm-2"><a href="{% url 'edit' %}"><h4>Edit</h4></a></div>
+        <div class="col-sm-2"><a href="#"><h4>Login</h4></a></div>
+    </div>
 </div>
+<br><br>
 <div class="container">
     <div class="col-sm-12">
         <div class="col-sm-6">
@@ -10,24 +17,36 @@
                 <div class="form-group">{{ account.first_name }}</div>
                 <div class="form-group">{{ account.last_name }}</div>
                 <div class="form-group">{{ account.birthday }}</div>
-                <img class="img-responsive" src="img_chania.jpg">
+                <img class="img-responsive" src="{% cropped_thumbnail account "cropping" %}">
             </fieldset>
         </div>
 
         <div class="col-sm-6">
             <fieldset class="form-horizontal">
-                <div class="form-group">Contacts</div>
-                <div class="form-group">Email: {{ account.email }}</div>
-                <div class="form-group">Jabber: {{ account.jabber }}</div>
-                <div class="form-group">Skype: {{ account.skype }}</div>
-                <div class="form-group">Other contacts:<br>{{ account.other_info }}</div>
-                <div class="form-group">Bio: <br>{{ account.bio }}</div>
+                <div class="form-group"><label>Contacts</label></div>
+                <div class="form-group">
+                    <label class="col-sm-4">Email:</label>
+                    <div class="col-sm-8">{{ account.email }}</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4">Jabber: </label>
+                    <div class="col-sm-8">{{ account.jabber }}</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4">Skype:</label>
+                    <div class="col-sm-8"> {{ account.skype }}</div>
+                </div>
+                <div class="form-group">
+                    <label>Other contacts:</label><br>
+                    {{ account.other_info }}
+                </div>
+                <div class="form-group">
+                    <label>Bio:</label><br>
+                    {{ account.bio }}
+                </div>
             </fieldset>
         </div>
     </div>
 </div>
-<div class="container">
-    <hr>
-    <a href="{% url 'requests' %}">Requests</a>
-</div>
+
 {% endblock content%}

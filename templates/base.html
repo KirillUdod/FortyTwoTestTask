@@ -13,11 +13,21 @@
 
         <link rel="stylesheet" href="{% static 'css/screen.css' %}" media="screen, projection"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script
+                  src="https://code.jquery.com/jquery-3.2.1.min.js"
+                  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+                  crossorigin="anonymous"></script>
+
         {% block extra_head %}{% endblock extra_head %}
 
     </head>
     <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
         {% block content %}{% endblock content %}
+        <div class="container">
+            <hr>
+            <a href="{% url 'requests' %}">Requests</a>
+        </div>
+            <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+        {% block script %}{% endblock %}
     </body>
 </html>

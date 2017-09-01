@@ -1,7 +1,8 @@
 from django import forms
 from .models import Account
 
-class ProfileSettingsForm(forms.ModelForm):
+
+class EditForm(forms.ModelForm):
     first_name = forms.CharField(label=u'Name', required=True,
                                  widget=forms.TextInput(attrs={
                                      u'type': u'text',
@@ -39,27 +40,30 @@ class ProfileSettingsForm(forms.ModelForm):
                             }))
 
     bio = forms.CharField(label=u'Bio', required=True,
-                          widget=forms.TextInput(attrs={
+                          widget=forms.Textarea(attrs={
                               u'type': u'text',
-                              u'class': u'form-control'
+                              u'class': u'form-control',
+                              u'rows': '3',
+
                           }))
 
     other_info = forms.CharField(label=u'Other contacts', required=True,
-                                 widget=forms.TextInput(attrs={
+                                 widget=forms.Textarea(attrs={
                                      u'type': u'text',
-                                     u'class': u'form-control'
+                                     u'class': u'form-control',
+                                     u'rows': '3',
                                  }))
 
     photo = forms.ImageField(label=u'Photo',
                              required=False,
                              widget=forms.FileInput(
-                                 attrs={'class': 'form-control'}))
+                             attrs={'class': 'form-control'}))
 
     class Meta:
         model = Account
         fields = (u'first_name', u'last_name', u'birthday', u'email', u'skype',
-                  u'jabber', u'bio', u'other_info',u'photo')
+                  u'jabber', u'bio', u'other_info', u'photo')
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
-        super(ProfileSettingsForm, self).__init__(*args, **kwargs)
+        super(EditForm, self).__init__(*args, **kwargs)
