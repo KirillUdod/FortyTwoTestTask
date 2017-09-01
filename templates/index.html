@@ -7,20 +7,21 @@
     <div class="col-sm-12">
         <div class="col-sm-6">
             <fieldset class="form-horizontal">
-                <div class="form-group">My Name</div>
-                <div class="form-group">my Last name</div>
-                <div class="form-group">my Date of birth</div>
-                <div class="form-group">Bio: <br>Text</div>
+                <div class="form-group">{{ account.first_name }}</div>
+                <div class="form-group">{{ account.last_name }}</div>
+                <div class="form-group">{{ account.birthday }}</div>
+                <img class="img-responsive" src="img_chania.jpg">
             </fieldset>
         </div>
 
         <div class="col-sm-6">
             <fieldset class="form-horizontal">
                 <div class="form-group">Contacts</div>
-                <div class="form-group">Email: email</div>
-                <div class="form-group">Jabber: JID</div>
-                <div class="form-group">Skype: id</div>
-                <div class="form-group">Other contacts:<br>etc</div>
+                <div class="form-group">Email: {{ account.email }}</div>
+                <div class="form-group">Jabber: {{ account.jabber }}</div>
+                <div class="form-group">Skype: {{ account.skype }}</div>
+                <div class="form-group">Other contacts:<br>{{ account.other_info }}</div>
+                <div class="form-group">Bio: <br>{{ account.bio }}</div>
             </fieldset>
         </div>
     </div>
