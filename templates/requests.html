@@ -9,31 +9,30 @@
 </ul>
 <div>
 <script>
-var new_rows = 0;
-var title = $('title').text()
-setInterval('NewData()', 5000)
-function NewData()
-{
-    $.ajax({
-            type: "GET",
-            url: "{% url 'new_requests' %}",
-            success: function(response){
-                var ii = 0;
-                var new_elements = response.data;
-                var id = $('ul.list-group li:first').attr('id')
-                new_elements.forEach(function(row){
-                if (row.input_id > id) {
-                    console.log(ii);
-                    $(".list-group").prepend('<li class="list-group-item" id='+ row.input_id +'>' + JSON.stringify(row) + '</li>');
-                    ii+= 1;
+    var new_rows = 0;
+    var title = $('title').text()
+    setInterval('NewData()', 5000)
+    function NewData()
+    {
+        $.ajax({
+                type: "GET",
+                url: "{% url 'new_requests' %}",
+                success: function(response){
+                    var ii = 0;
+                    var new_elements = response.data;
+                    var id = $('ul.list-group li:first').attr('id')
+                    new_elements.forEach(function(row){
+                    if (row.input_id > id) {
+                        $(".list-group").prepend('<li class="list-group-item" id='+ row.input_id +'>' + row.request.toString().replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</li>');
+                        ii+= 1;
+                        }
+                })
+                if (ii != 0) {
+                    new_rows += ii
+                    $("title").html("("+ new_rows + ") " + title);
                     }
+            }
             })
-            if (ii != 0) {
-                new_rows += ii
-                $("title").html("("+ new_rows + ") " + title);
-                }
-        }
-        })
-        }
+            }
 </script>
 {% endblock %}

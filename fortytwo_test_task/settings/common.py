@@ -43,6 +43,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'south',
+    'easy_thumbnails',
+    'image_cropping',
 
     'apps.hello',
 )
@@ -130,3 +132,4 @@ TEMPLATE_DIRS = (
 
 # Turn off south during test
 SOUTH_TESTS_MIGRATE = False
+
