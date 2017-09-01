@@ -5,9 +5,9 @@ from image_cropping import ImageCropField, ImageRatioField
 
 
 class AccountManager(models.Manager):
-    def create_account(self, user, first_name, last_name, middle_name, birthday, city, university, degree, photo):
-        account = self.model(user=user, first_name=first_name, last_name=last_name, middle_name=middle_name,
-                             birthday=birthday, city=city, university=university, degree=degree, photo=photo)
+    def create_account(self, user, first_name, last_name, birthday, jabber, skype, bio, other_info):
+        account = self.model(user=user, first_name=first_name, last_name=last_name,
+                             birthday=birthday, jabber=jabber, skype=skype, bio=bio, other_info=other_info)
         account.save(using=self._db)
         return account
 

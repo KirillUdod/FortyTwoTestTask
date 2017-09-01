@@ -1,10 +1,11 @@
+from django.contrib.auth import get_user_model
 from django.test import TestCase, Client
 
 import datetime
 
-from .models import MainInfo
-# Create your tests here.
+from .models import Account
 
+User = get_user_model()
 
 class IndexTests(TestCase):
 
@@ -18,19 +19,19 @@ class IndexTests(TestCase):
 class TestModel(TestCase):
 
     def setUp(self):
-        MainInfo.objects.create(name='Testname',
-                                last_name='Test lastname',
-                                birthday=datetime.date.today(),
-                                email='test@test.com',
-                                jabber='test_jadder',
-                                bio='asdas',)
+        u1 = User.objects.create(username='user1')
+        Account.objects.create(user=u1,
+                               first_name='Testname',
+                               last_name='Test lastname',
+                               birthday=datetime.date.today(),
+                               jabber='test_jadder',
+                               bio='asdas')
 
     def test_model(self):
         "check saved data for right value"
-        main = MainInfo.objects.get(name="Testname")
+        main = Account.objects.get(first_name="Testname")
 
         self.assertEqual(main.last_name, 'Test lastname')
         self.assertEqual(main.birthday, datetime.date.today())
-        self.assertEqual(main.email, 'test@test.com')
         self.assertEqual(main.jabber, 'test_jadder')
         self.assertEqual(main.bio, 'asdas')
