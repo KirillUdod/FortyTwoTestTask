@@ -1,5 +1,9 @@
 from django import forms
+from django.contrib.auth import get_user_model, authenticate
+
 from .models import Account
+
+User = get_user_model()
 
 
 class EditForm(forms.ModelForm):
@@ -67,3 +71,28 @@ class EditForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         self.user = user
         super(EditForm, self).__init__(*args, **kwargs)
+
+
+class LoginForm(forms.Form):
+    name = forms.CharField(label=u'Логин', required=True, widget=forms.TextInput(attrs={
+        u'type': u'login',
+        u'class': u'form-control col-sm-10'
+    }))
+    password = forms.CharField(label=u'Пароль', required=True, widget=forms.PasswordInput(attrs={
+        u'type': u'password',
+        u'class': u'form-control col-sm-10'
+    }))
+
+    def clean(self):
+        username = self.cleaned_data.get('name')
+        password = self.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        if not user or not user.is_active:
+            raise forms.ValidationError("Sorry, that login was invalid. Please try again.")
+        return self.cleaned_data
+
+    def login(self, request):
+        username = self.cleaned_data.get('name')
+        password = self.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        return user

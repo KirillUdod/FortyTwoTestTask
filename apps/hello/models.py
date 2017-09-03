@@ -53,6 +53,11 @@ class Account(models.Model):
     def email(self):
         return self.user.email
 
+    def save(self, *args, **kwargs):
+        self.user.save()
+        super(Account, self).save(*args, **kwargs)
+
+
 class WebRequest(models.Model):
     request = models.CharField(max_length=500)
 

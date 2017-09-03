@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+    <div class="container mtb">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="text-center">{% trans "Login" %}</h2>
+                </br>
+                <div class="col-sm-4"></div>
+                <form method="POST" class="col-sm-4 form-horizontal" action="{% url 'login' %}">{% csrf_token %}
+                    {{ form.non_field_errors }}
+                    <label for="{{ form.name.id_for_label }}">Login</label><br/>
+                    {{ form.name }}
+                    <label for="{{ form.password.id_for_label }}">Password</label><br/>
+                    {{ form.password }}
+                    <br />
+                    <div class="auth-form-actions text-left">
+                        <br />
+                        <input type="submit" class="btn btn-default btn-success" value='Sign In' />
+                        </div>
+                </form>
+                <div class="col-sm-4"></div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

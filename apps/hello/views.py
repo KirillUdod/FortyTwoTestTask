@@ -1,13 +1,16 @@
 # Create your views here.
-from django.views.generic import FormView, TemplateView, View
+from django.core.urlresolvers import reverse
+from django.contrib.auth import get_user_model, login, logout
 from django.http import HttpResponse
+from django.views.generic import FormView, TemplateView, View
 from django.shortcuts import redirect
 
 import json
 
 from .models import Account, WebRequest
-from .forms import EditForm
+from .forms import EditForm, LoginForm
 
+User = get_user_model()
 
 class IndexPage(TemplateView):
     template_name = u'index.html'
@@ -66,26 +69,45 @@ class EditView(FormView):
     success_url = '/'
 
     def get_initial(self):
-        acc = Account.objects.all().first()
+        # FIXME: change to right way
+        # self.user = self.request.user
+        # self.account = self.user.account
+        self.account = Account.objects.all().first()
         self.user = Account.objects.all().first().user
-        return {'first_name': acc.first_name,
-                'last_name': acc.last_name,
-                'birthday': acc.birthday,
-                'email': acc.email,
-                'skype': acc.skype,
-                'jabber': acc.jabber,
-                'other_info': acc.other_info,
-                'bio': acc.bio,
-            }
+        return {'first_name': self.account.first_name,
+                'last_name': self.account.last_name,
+                'birthday': self.account.birthday,
+                'email': self.account.email,
+                'skype': self.account.skype,
+                'jabber': self.account.jabber,
+                'other_info': self.account.other_info,
+                'bio': self.account.bio
+                }
+
+    def form_valid(self, form):
+        first_name, last_name, birthday, skype, jabber, other_info, bio = (
+            form.cleaned_data.get(u'first_name'),
+            form.cleaned_data.get(u'last_name'),
+            form.cleaned_data.get(u'birthday'),
+            form.cleaned_data.get(u'skype'),
+            form.cleaned_data.get(u'jabber'),
+            form.cleaned_data.get(u'other_info'),
+            form.cleaned_data.get(u'bio')
+        )
+        self.account.user.first_name = first_name
+        self.account.user.last_name = last_name
+        self.account.birthday = birthday
+        self.account.skype = skype
+        self.account.jabber = jabber
+        self.account.other_info = other_info
+        self.account.bio = bio
+        if 'photo' in self.request.FILES:
+                self.account.photo = self.request.FILES['photo']
+        self.account.save()
+        return redirect(reverse(u'edit'))
 
     def get_context_data(self, **kwargs):
         if self.request.method == "GET":
-            context = super(EditView, self).get_context_data(**kwargs)
-            context[u'account'] = self.request.user.account
-            return context
-        else:
-            print('edited')
-            print(self.request.POST.get('data'))
             context = super(EditView, self).get_context_data(**kwargs)
             context[u'account'] = self.request.user.account
             return context
@@ -95,3 +117,35 @@ class EditView(FormView):
         kwargs = super(EditView, self).get_form_kwargs()
         kwargs.update({u'user': self.user})
         return kwargs
+
+
+class LoginView(FormView):
+
+    template_name = u'login.html'
+    form_class = LoginForm
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            return redirect(reverse(u'index'))
+        return super(LoginView, self).get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        user = form.login(self.request)
+        if user:
+            login(self.request, user)
+            return redirect(reverse(u'index'))
+        else:
+            return redirect(reverse(u'index'))
+
+    def get_context_data(self, **kwargs):
+        context = super(LoginView, self).get_context_data(**kwargs)
+        return context
+
+
+class LogOut(View):
+    def get(self, request):
+        return self.post(request)
+
+    def post(self, request):
+        logout(request)
+        return redirect(reverse(u'index'))

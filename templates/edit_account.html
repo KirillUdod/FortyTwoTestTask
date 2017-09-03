@@ -21,7 +21,7 @@
                     {% endfor %}
                 {% endif %}
                 {% csrf_token %}
-                <form><div class="col-sm-6">
+                <form id="edit_form"><div class="col-sm-6">
                         <div>
                             <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label><br/>
                             {{ form.first_name }}
@@ -70,6 +70,7 @@
                 <div class="col-sm-12 text-left">
                     <br/>
                     <input class="btn btn-default btn-success" id="submit" type="submit" value="submit" />
+                    <a href="{% url 'index' %}">Cancel</a>
                 </div>
             </div>
             <div class="col-sm-1"></div>
@@ -80,19 +81,23 @@
 {% block script %}
 <script>
 
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
 $(function () {
 
      $("#submit").click(function () {
-        console.log('zzzzzzzzzzzzzzzzzzzzzzz')
+        $("#edit_form input").prop("disabled", true);
+        $("#edit_form textarea").prop("disabled", true);
          $.ajax({
              type: 'POST',
              url: '{% url 'edit'  %}',
              data: {'csrfmiddlewaretoken':$('input[name="csrfmiddlewaretoken"]').val(),
-                    'data': $("form").serialize()
+                    'first_name': $('#id_first_name').val(),
+                    'last_name': $('#id_last_name').val(),
+                    'birthday': $('#id_birthday').val(),
+                    'email': $('#id_email').val(),
+                    'jabber': $('#id_jabber').val(),
+                    'skype': $('#id_skype').val(),
+                    'other_info': $('#id_other_info').val(),
+                    'bio': $('#id_bio').val()
                     },
              cache: false,
              success: function (data, status) {
