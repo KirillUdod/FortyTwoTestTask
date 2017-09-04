@@ -9,6 +9,9 @@ test: check_noqa
 check_noqa:
 	bash check_noqa.sh
 
+init_admin:
+    PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(SETTINGS) $(MANAGE) initdata
+
 run:
 	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(SETTINGS) $(MANAGE) runserver
 

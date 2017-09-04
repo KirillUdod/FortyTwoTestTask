@@ -7,7 +7,6 @@ from .models import Account
 
 User = get_user_model()
 
-
 class IndexTests(TestCase):
 
     def test_index(self):
