@@ -96,10 +96,9 @@ class EditView(FormView):
         return redirect(reverse(u'edit'))
 
     def get_context_data(self, **kwargs):
-        if self.request.method == "GET":
-            context = super(EditView, self).get_context_data(**kwargs)
-            context[u'account'] = self.request.user.account
-            return context
+        context = super(EditView, self).get_context_data(**kwargs)
+        context[u'account'] = self.request.user.account
+        return context
 
     def get_form_kwargs(self):
         kwargs = super(EditView, self).get_form_kwargs()

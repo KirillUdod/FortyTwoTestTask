@@ -61,8 +61,8 @@ class EditForm(forms.ModelForm):
 
     photo = forms.ImageField(label=u'Photo',
                              required=False,
-                             widget=forms.FileInput(attrs=
-                                                    {'class': 'form-control'}))
+                             widget=forms.FileInput(
+                                 attrs={'class': 'form-control'}))
 
     class Meta:
         model = Account
