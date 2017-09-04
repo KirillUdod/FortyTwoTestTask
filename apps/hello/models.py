@@ -65,6 +65,7 @@ class Account(models.Model):
 
 class WebRequest(models.Model):
     request = models.CharField(max_length=500)
+    priority = models.IntegerField(default=0)
 
     def as_json(self):
             return dict(

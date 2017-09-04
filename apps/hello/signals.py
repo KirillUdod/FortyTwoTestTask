@@ -8,16 +8,16 @@ from .models import Logs
 def saved_model(sender, instance, created, **kwargs):
     if sender.__name__ != "Logs":
         if created:
-            log = Logs(content_object=instance, action='1')
+            log = Logs(content_object=instance, action='0')
             log.save()
         else:
-            log = Logs(content_object=instance, action='2')
+            log = Logs(content_object=instance, action='1')
             log.save()
     return None
 
 
 @receiver(post_delete)
 def deleted(sender, instance, created, **kwargs):
-    log = Logs(content_object=instance, action='3')
+    log = Logs(content_object=instance, action='2')
     log.save()
     return None
