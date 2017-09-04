@@ -8,5 +8,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         call_command('loaddata', 'initial_data')
         for user in Account.objects.all():
-            user.set_password(user.password)
+            user.user.set_password(user.user.password)
             user.save()
