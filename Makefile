@@ -5,6 +5,7 @@ test: check_noqa
 	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(SETTINGS) $(MANAGE) test
 	flake8 --exclude '*migrations*,fortytwo_test_task/settings/__init__.py' \
 		--max-complexity=6 apps fortytwo_test_task
+	init_admin
 
 check_noqa:
 	bash check_noqa.sh
