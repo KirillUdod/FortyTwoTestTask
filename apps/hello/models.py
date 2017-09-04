@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.conf import settings
 from django.db import models
 
@@ -13,7 +14,7 @@ class AccountManager(models.Manager):
 
 
 class Account(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=u'Пользователь', related_name=u'account')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=u'Account', related_name=u'account')
     # removed while exist in user model
     # first_name = models.CharField(u'First Name', max_length=255)
     # last_name = models.CharField(u'Last Name', max_length=255)
