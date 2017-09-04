@@ -6,16 +6,17 @@ from image_cropping import ImageCropField, ImageRatioField
 
 
 class AccountManager(models.Manager):
-    def create_account(self, user, birthday, jabber, skype, bio, other_info):
+    def create_account(self, user, birthday, jabber, skype, bio, other_info, image):
         account = self.model(user=user,
-                             birthday=birthday, jabber=jabber, skype=skype, bio=bio, other_info=other_info)
+                             birthday=birthday, jabber=jabber, skype=skype, bio=bio, other_info=other_info,
+                             image=image)
         account.save(using=self._db)
         return account
 
 
 class Account(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=u'Account', related_name=u'account')
-    # removed while exist in user model
+    # removed while exists in user model
     # first_name = models.CharField(u'First Name', max_length=255)
     # last_name = models.CharField(u'Last Name', max_length=255)
 
