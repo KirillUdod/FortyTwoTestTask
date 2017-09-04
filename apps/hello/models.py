@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
 from django.db import models
 
 from image_cropping import ImageCropField, ImageRatioField
@@ -70,8 +72,42 @@ class WebRequest(models.Model):
                 request=self.request[:50],
             )
 
+    class Meta:
+        verbose_name = u'Request'
+        verbose_name_plural = u'Requests'
+
     def __str__(self):
         return self.request
 
     def __unicode__(self):
         return self.request
+
+
+class Logs(models.Model):
+    CHOICES = (
+        ('0', 'created'),
+        ('1', 'edited'),
+        ('2', 'deleted'),
+    )
+
+    action = models.CharField(max_length=1, choices=CHOICES)
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey('content_type', 'object_id')
+
+    class Meta:
+        verbose_name = u'Log'
+        verbose_name_plural = u'Logs'
+
+    def __unicode__(self):
+        return 'qq'
+
+    def __str__(self):
+        return "%s %s is %s" % (self.content_object.__class__.__name__,
+                                self.object_id,
+                                self.CHOICES[int(self.action)][1])
+
+from .signals import *
+
+__all__ = ['signals']
+
