@@ -12,22 +12,13 @@ from .forms import EditForm, LoginForm
 
 User = get_user_model()
 
+
 class IndexPage(TemplateView):
     template_name = u'index.html'
 
     def get_context_data(self, **kwargs):
         context = super(IndexPage, self).get_context_data(**kwargs)
-        #context[u'account'] = self.request.user.account
         context[u'account'] = Account.objects.all().first()
-        # context[u'account'] = {'first_name': 'My first name',
-        #                        'last_name': 'My last name',
-        #                        'birthday': 'date of my b',
-        #                        'email': 'email',
-        #                        'jabber': '22345',
-        #                        'skype': 'my_skype',
-        #                        'bio': 'bio',
-        #                        'other_info': 'other',
-        #                        }
         return context
 
 
@@ -70,8 +61,6 @@ class EditView(FormView):
 
     def get_initial(self):
         # FIXME: change to right way
-        # self.user = self.request.user
-        # self.account = self.user.account
         self.account = Account.objects.all().first()
         self.user = Account.objects.all().first().user
         return {'first_name': self.account.first_name,
@@ -111,7 +100,6 @@ class EditView(FormView):
             context = super(EditView, self).get_context_data(**kwargs)
             context[u'account'] = self.request.user.account
             return context
-
 
     def get_form_kwargs(self):
         kwargs = super(EditView, self).get_form_kwargs()

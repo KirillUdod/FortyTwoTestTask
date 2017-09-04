@@ -7,7 +7,9 @@ register = template.Library()
 
 
 def url_to_edit_object(object):
-    url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.model_name),  args=[object.id] )
+    url = reverse('admin:%s_%s_change' % (object._meta.app_label,
+                                          object._meta.model_name),
+                  args=[object.id])
     return u'<a href="%s"><h4>(admin)</h4></a>' % url
 
 

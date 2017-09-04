@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
 
-from .views import IndexPage, RequestsPage, NewRequestsView, EditView, LogOut, LoginView
+from .views import IndexPage, RequestsPage, NewRequestsView,\
+    EditView, LogOut, LoginView
 
 urlpatterns = patterns(
     '',

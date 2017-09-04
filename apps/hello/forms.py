@@ -61,8 +61,8 @@ class EditForm(forms.ModelForm):
 
     photo = forms.ImageField(label=u'Photo',
                              required=False,
-                             widget=forms.FileInput(
-                             attrs={'class': 'form-control'}))
+                             widget=forms.FileInput(attrs=
+                                                    {'class': 'form-control'}))
 
     class Meta:
         model = Account
@@ -75,21 +75,24 @@ class EditForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    name = forms.CharField(label=u'Логин', required=True, widget=forms.TextInput(attrs={
-        u'type': u'login',
-        u'class': u'form-control col-sm-10'
-    }))
-    password = forms.CharField(label=u'Пароль', required=True, widget=forms.PasswordInput(attrs={
-        u'type': u'password',
-        u'class': u'form-control col-sm-10'
-    }))
+    name = forms.CharField(label=u'Логин', required=True,
+                           widget=forms.TextInput(attrs={
+                               u'type': u'login',
+                               u'class': u'form-control col-sm-10'
+                           }))
+    password = forms.CharField(label=u'Пароль', required=True,
+                               widget=forms.PasswordInput(attrs={
+                                   u'type': u'password',
+                                   u'class': u'form-control col-sm-10'
+                               }))
 
     def clean(self):
         username = self.cleaned_data.get('name')
         password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
         if not user or not user.is_active:
-            raise forms.ValidationError("Sorry, that login was invalid. Please try again.")
+            raise forms.ValidationError("Sorry, that login was invalid. "
+                                        "Please try again.")
         return self.cleaned_data
 
     def login(self, request):

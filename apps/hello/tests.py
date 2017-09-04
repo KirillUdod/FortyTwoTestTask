@@ -7,10 +7,11 @@ from .models import Account
 
 User = get_user_model()
 
+
 class IndexTests(TestCase):
 
     def test_index(self):
-        # "return hard-coded data for the template"
+        "\return hard-coded data for the template"
         u1 = User.objects.create(username='user1',
                                  first_name='Testname',
                                  last_name='Test lastname')

@@ -10,4 +10,3 @@ urlpatterns = patterns(
     url(r'^', include(u'hello.urls')),
     url(r'^admin/', include(admin.site.urls), name=u'admin'),
     ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
