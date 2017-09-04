@@ -3,7 +3,7 @@ from hello.models import Account
 
 
 class Command(BaseCommand):
-    help = "DEV COMMAND: Fill databasse with a set of data for testing purposes"
+    help = "DEV COMMAND: Move admin acc to db"
 
     def handle(self, *args, **options):
         call_command('loaddata', 'initial_data')
