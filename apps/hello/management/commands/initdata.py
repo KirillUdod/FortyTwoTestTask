@@ -9,4 +9,5 @@ class Command(BaseCommand):
         call_command('loaddata', 'initial_data')
         for user in Account.objects.all():
             user.user.set_password(user.user.password)
+            user.user.save()
             user.save()
