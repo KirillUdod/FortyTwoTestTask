@@ -1,1 +1,4 @@
-from .signals import *
+import signals
+
+
+__all__ = ['signals']

@@ -7,7 +7,6 @@ from django.db import models
 from image_cropping import ImageCropField, ImageRatioField
 
 
-
 class AccountManager(models.Manager):
     def create_account(self, user, birthday, jabber, skype, bio,
                        other_info, image):
