@@ -3,7 +3,7 @@ from django.test import TestCase, Client
 
 import datetime
 
-from .models import Account, WebRequest, Logs
+from .models import Account, Logs
 
 User = get_user_model()
 
@@ -49,9 +49,9 @@ class TestLogsModel(TestCase):
                                  first_name='Testname',
                                  last_name='Test lastname')
         a1 = Account.objects.create(user=u1,
-                               birthday=datetime.date.today(),
-                               jabber='test_jadder',
-                               bio='asdas')
+                                    birthday=datetime.date.today(),
+                                    jabber='test_jadder',
+                                    bio='asdas')
         self.uid = a1.id
 
     def test_logs(self):

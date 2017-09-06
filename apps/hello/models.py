@@ -6,6 +6,10 @@ from django.db import models
 
 from image_cropping import ImageCropField, ImageRatioField
 
+import signals
+
+__all__ = ['signals']
+
 
 class AccountManager(models.Manager):
     def create_account(self, user, birthday, jabber, skype, bio,
@@ -107,8 +111,3 @@ class Logs(models.Model):
         return "%s %s is %s" % (self.content_object.__class__.__name__,
                                 self.object_id,
                                 self.CHOICES[int(self.action)][1])
-
-from .signals import *
-
-__all__ = ['signals']
-
