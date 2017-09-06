@@ -9,7 +9,7 @@
         <div class="col-sm-9"><h1>42 Coffee Cups Test Assignment</h1></div>
         <div class="col-sm-1"><a href="{% url 'edit' %}"><h4>Edit</h4></a></div>
         <div class="col-sm-1"><a href="{% url 'login' %}"><h4>Login</h4></a></div>
-        <div class="col-sm-1">{%  edit_link "asdasd" %}<h4>Login</h4></a></div>
+        <div class="col-sm-1">{%  edit_link "asdasd" %}<h4>Login</h4></div>
 
     </div>
 </div>
@@ -21,7 +21,9 @@
                 <div class="form-group">{{ account.first_name }}</div>
                 <div class="form-group">{{ account.last_name }}</div>
                 <div class="form-group">{{ account.birthday }}</div>
-                <img class="img-responsive" src="{% cropped_thumbnail account "cropping" %}">
+                {% if account %}
+                    <img class="img-responsive" src="{% cropped_thumbnail account "cropping" %}">
+                {% endif %}
             </fieldset>
         </div>
 
