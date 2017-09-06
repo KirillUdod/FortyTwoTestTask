@@ -1,18 +1,12 @@
 [
 {
-    "pk": 5,
+    "pk": 1,
     "model": "auth.user",
     "fields": {
         "email": "admin@admin.com",
         "is_active": true,
-        "last_name": "Foo",
-        "user_permissions": [],
         "is_staff": true,
-        "date_joined": "2017-08-31T08:29:50Z",
-        "password": "admin",
-        "groups": [],
-        "last_login": "2017-09-01T10:52:01Z",
-        "first_name": "Goo",
+        "password": "pbkdf2_sha256$12000$IZ4fs2XdNODr$vHOM7OiA7jB3LDrsLPQiiRIXeuEMdHQUabiDFfjyMPA=",
         "is_superuser": true,
         "username": "admin"
     }
