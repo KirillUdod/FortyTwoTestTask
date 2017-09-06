@@ -1,5 +1,3 @@
-try:
-    import signals
-    __all__ = ['signals']
-except:
-    from .signals import *
+import signals
+__all__ = ['signals']
+
