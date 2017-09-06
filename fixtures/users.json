@@ -1,9 +1,9 @@
 [
 {
-    "pk": 1,
+    "pk": 5,
     "model": "auth.user",
     "fields": {
-        "email": "admin1@admin.com",
+        "email": "admin@admin.com",
         "is_active": true,
         "last_name": "Foo",
         "user_permissions": [],
