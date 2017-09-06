@@ -6,9 +6,6 @@ from django.db import models
 
 from image_cropping import ImageCropField, ImageRatioField
 
-import signals
-
-__all__ = ['signals']
 
 
 class AccountManager(models.Manager):

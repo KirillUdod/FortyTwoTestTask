@@ -45,7 +45,7 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'image_cropping',
 
-    'apps.hello',
+    'hello',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -133,7 +133,6 @@ TEMPLATE_DIRS = (
 # Turn off south during test
 SOUTH_TESTS_MIGRATE = False
 
-print(os.path.join(BASE_DIR, "hello/fixtures",))
 FIXTURE_DIRS = (
       os.path.join(BASE_DIR, "fixtures",),
       os.path.join(BASE_DIR, "hello/fixtures",),
